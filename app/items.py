@@ -3,9 +3,9 @@ from google.cloud import bigquery
 class Items(object):
   """An interface for reading data about items."""
 
-  def get_item_price(id):
+  def get_item_price(identifier):
       client = bigquery.Client(project='gce-testailua')
-      query = "select item_id from `gce-testailua.endpoint_test.items` where item_id=%s;" % (id)
+      query = "select item_id from `gce-testailua.endpoint_test.items` where item_id=%s;" % (identifier)
       dataset = client.dataset('endpoint_test')
       table = dataset.table(name='items')
       job = client.run_async_query('my-job', query)
