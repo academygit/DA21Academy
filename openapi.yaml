@@ -1,0 +1,27 @@
+swagger: "2.0"
+info:
+  title: "Items"
+  description: "Show item information"
+  version: "1.0.0"
+
+host: "YOUR-PROJECT-ID.appspot.com"
+schemes:
+  - "https"
+paths:
+  "/price":
+    get:
+      description: "Shows item price for given item_id"
+      operationId: "price"
+      parameters:
+        -
+          name: item_id
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Success."
+          schema:
+            type: string
+        400:
+          description: "The item id is invalid or missing."
