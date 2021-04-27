@@ -14,12 +14,12 @@ class Items(object):
       response = job.begin()
       return response
 
-  def get_item_price_new(id):
+  def get_item_price_new(identifier):
       client = bigquery.Client(project='gce-testailua')
       query = """
       SELECT item_id 
       FROM `gce-testailua.endpoint_test.items` 
       WHERE item_id like '%s';
-      """ % (id)
+      """ % (identifier)
       query_job = client.query(query)
       return query_job

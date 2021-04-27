@@ -22,7 +22,7 @@ app = Flask(__name__)
 item_util = Items()
 
 @app.route('/price', methods=['GET'])
-def airportName():
+def price():
     """Given an item_id returns the price of the item."""
     item_id = request.args.get('item_id')
     if item_id is None:
