@@ -16,7 +16,9 @@ import logging
 
 from flask import Flask
 from flask import request
-from items import Items
+# from items import Items
+
+from google.cloud import bigquery
 
 app = Flask(__name__)
 item_util = Items()
@@ -24,13 +26,21 @@ item_util = Items()
 @app.route('/price', methods=['GET'])
 def price():
     """Given an item_id returns the price of the item."""
-    item_id = request.args.get('item_id')
-    if item_id is None:
+    identifier = request.args.get('item_id')
+    if identifier is None:
       return 'No item_id code provided.', 400
 
-    maybe_price = item_util.get_item_price_new(item_id)
+    # maybe_price = item_util.get_item_price_new(identifier)
+    client = bigquery.Client(project='gce-testailua')
+    query = """
+    SELECT item_id 
+    FROM `gce-testailua.endpoint_test.items` 
+    WHERE item_id like '%s';
+    """ % (identifier)
+    maybe_price = client.query(query)
+
     if maybe_price is None:
-      return 'Price not found : %s' % item_id, 400
+      return 'Price not found : %s' % identifier, 400
     return maybe_price, 200
 
 if __name__ == '__main__':
