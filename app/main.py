@@ -21,7 +21,7 @@ from flask import request
 from google.cloud import bigquery
 
 app = Flask(__name__)
-item_util = Items()
+# item_util = Items()
 
 @app.route('/price', methods=['GET'])
 def price():
